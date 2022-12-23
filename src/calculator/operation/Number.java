@@ -7,8 +7,11 @@ import calculator.Operation;
  */
 public class Number implements Operation {
 
+    public Number(double number) {
+    }
+
     @Override
     public double calculate() {
-
+        // todo Добавить свой код здесь
     }
 }

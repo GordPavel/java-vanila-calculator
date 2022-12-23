@@ -7,16 +7,17 @@ import calculator.Operation;
  */
 public class Subtraction implements Operation {
 
+    public Subtraction(Operation left, Operation right) {
+    }
+
     @Override
     public double calculate() {
-
+        // todo Добавить свой код здесь
     }
 
     public Operation getLeft() {
-        return left;
     }
 
     public Operation getRight() {
-        return right;
     }
 }

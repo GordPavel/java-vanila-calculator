@@ -60,16 +60,19 @@ public abstract class OperationsReader {
         if (ADDITION_OPERATOR.equals(operator)) {
             // тут остается правая часть операции (может быть пустым)
             final Operation rightOperator = readOperationInternal();
+            // todo Добавить свой код здесь
             // выбрать правильный тип операции, сохранить в operation
         }
         // выполняем вычитание
         else if (SUBTRACTION_OPERATOR.equals(operator)) {
             // тут остается правая часть операции (может быть пустым)
             final Operation rightOperator = readOperationInternal();
+            // todo Добавить свой код здесь
             // выбрать правильный тип операции, сохранить в operation
         }
         // если не считали оператор, значит выражение закончилось
         else if (isNull(operator)) {
+            // todo Добавить свой код здесь
             // выбрать правильный тип операции, сохранить в operation
         }
         // передали строку, которую не можем считать, кидаем ошибку
