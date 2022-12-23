@@ -14,30 +14,25 @@ public class Main {
      * операций.
      */
     public static void main(String[] args) throws IOException {
-        Operation operation;
-        switch (args[0]) {
-            case "--expr":
-                operation = readFromArgs(args[1]);
-                break;
-            case "--file":
-                operation = readFromFile(args[1]);
-                break;
-            default:
-                throw new IllegalArgumentException("The only supported inputs are --expr {calculation expression} or "
-                                                       + "--file {file path}");
+        Reader reader = null;
+        try {
+            switch (args[0]) {
+                case "--expr":
+                    reader = new StringReader(args[1]);
+                    break;
+                case "--file":
+                    reader = new FileReader(args[1]);
+                    break;
+                default:
+                    throw new IllegalArgumentException(
+                        "The only supported inputs are --expr {calculation expression} or "
+                            + "--file {file path}");
+            }
+            Operation operation = OperationsReader.readOperation(reader);
+            System.out.println(operation.calculate());
+        } finally {
+            reader.close();
         }
-        System.out.println(operation.calculate());
     }
 
-    private static Operation readFromArgs(String expression) throws IOException {
-        try (Reader reader = new StringReader(expression)) {
-            return OperationsReader.readOperation(reader);
-        }
-    }
-
-    private static Operation readFromFile(String filePath) throws IOException {
-        try (Reader reader = new FileReader(filePath)) {
-            return OperationsReader.readOperation(reader);
-        }
-    }
 }
