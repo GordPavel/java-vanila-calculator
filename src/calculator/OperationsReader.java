@@ -2,17 +2,22 @@ package calculator;
 
 import static java.util.Objects.isNull;
 
-import calculator.operation.LazyOperand;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.HashSet;
 import java.util.Set;
 
-public class OperationsReader {
+public abstract class OperationsReader {
 
     private static final Set<Character> NUMBERS = new HashSet<>();
     private static final String ADDITION_OPERATOR = "+";
     private static final String SUBTRACTION_OPERATOR = "-";
+
+    protected final Reader reader;
+
+    public OperationsReader(Reader reader) {
+        this.reader = reader;
+    }
 
     static {
         NUMBERS.add('1');
@@ -27,7 +32,9 @@ public class OperationsReader {
         NUMBERS.add('0');
     }
 
-    public static Operation readOperation(Reader reader) throws IOException {
+    public abstract Operation readOperation() throws IOException;
+
+    protected Operation readOperationInternal() throws IOException {
         final var leftOperandBuffer = new StringBuilder();
         // тут будет + или - для определения типа операции
         String operator = null;
@@ -47,16 +54,18 @@ public class OperationsReader {
 
         // тут хранится левое число операции
         final double leftOperand = Double.parseDouble(leftOperandBuffer.toString());
-        // тут остается правая часть операции (может быть пустым)
-        final var rightOperator = new LazyOperand(reader);
 
         Operation operation = null;
         // выполняем сложение
         if (ADDITION_OPERATOR.equals(operator)) {
+            // тут остается правая часть операции (может быть пустым)
+            final Operation rightOperator = readOperationInternal();
             // выбрать правильный тип операции, сохранить в operation
         }
         // выполняем вычитание
         else if (SUBTRACTION_OPERATOR.equals(operator)) {
+            // тут остается правая часть операции (может быть пустым)
+            final Operation rightOperator = readOperationInternal();
             // выбрать правильный тип операции, сохранить в operation
         }
         // если не считали оператор, значит выражение закончилось

@@ -11,4 +11,12 @@ public class Subtraction implements Operation {
     public double calculate() {
 
     }
+
+    public Operation getLeft() {
+        return left;
+    }
+
+    public Operation getRight() {
+        return right;
+    }
 }

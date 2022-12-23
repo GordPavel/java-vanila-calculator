@@ -1,9 +1,8 @@
 package calculator;
 
-import java.io.FileReader;
+import calculator.reader.ArgsExpressionReader;
+import calculator.reader.FileExpressionReader;
 import java.io.IOException;
-import java.io.Reader;
-import java.io.StringReader;
 
 public class Main {
 
@@ -14,25 +13,21 @@ public class Main {
      * операций.
      */
     public static void main(String[] args) throws IOException {
-        Reader reader = null;
-        try {
-            switch (args[0]) {
-                case "--expr":
-                    reader = new StringReader(args[1]);
-                    break;
-                case "--file":
-                    reader = new FileReader(args[1]);
-                    break;
-                default:
-                    throw new IllegalArgumentException(
-                        "The only supported inputs are --expr {calculation expression} or "
-                            + "--file {file path}");
-            }
-            Operation operation = OperationsReader.readOperation(reader);
-            System.out.println(operation.calculate());
-        } finally {
-            reader.close();
+        OperationsReader reader;
+        switch (args[0]) {
+            case "--expr":
+                reader = new ArgsExpressionReader(args[1]);
+                break;
+            case "--file":
+                reader = new FileExpressionReader(args[1]);
+                break;
+            default:
+                throw new IllegalArgumentException(
+                    "The only supported inputs are --expr {calculation expression} or "
+                        + "--file {file path}");
         }
+        Operation operation = OperationOptimizer.optimizeOperation(reader.readOperation());
+        System.out.println(operation.calculate());
     }
 
 }
