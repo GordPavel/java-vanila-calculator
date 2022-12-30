@@ -1,5 +1,9 @@
 package calculator;
 
+import calculator.operation.Addition;
+import calculator.operation.Number;
+import calculator.operation.Subtraction;
+
 import static java.util.Objects.isNull;
 
 import java.io.IOException;
@@ -60,20 +64,17 @@ public abstract class OperationsReader {
         if (ADDITION_OPERATOR.equals(operator)) {
             // тут остается правая часть операции (может быть пустым)
             final Operation rightOperator = readOperationInternal();
-            // todo Добавить свой код здесь
-            // выбрать правильный тип операции, сохранить в operation
+            operation = new Addition(new Number(leftOperand), rightOperator);
         }
         // выполняем вычитание
         else if (SUBTRACTION_OPERATOR.equals(operator)) {
             // тут остается правая часть операции (может быть пустым)
             final Operation rightOperator = readOperationInternal();
-            // todo Добавить свой код здесь
-            // выбрать правильный тип операции, сохранить в operation
+            operation = new Subtraction(new Number(leftOperand), rightOperator);
         }
         // если не считали оператор, значит выражение закончилось
         else if (isNull(operator)) {
-            // todo Добавить свой код здесь
-            // выбрать правильный тип операции, сохранить в operation
+            operation = new Number(leftOperand);
         }
         // передали строку, которую не можем считать, кидаем ошибку
         else {

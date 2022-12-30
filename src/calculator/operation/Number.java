@@ -6,12 +6,14 @@ import calculator.Operation;
  * Не выполняет операций, нужно для простого представления числа
  */
 public class Number implements Operation {
+    private final double number;
 
     public Number(double number) {
+        this.number = number;
     }
 
     @Override
     public double calculate() {
-        // todo Добавить свой код здесь
+        return this.number;
     }
 }
